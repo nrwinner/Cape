@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+
+  <script type="module" src="/build/cape.esm.js"></script>
+  <script nomodule src="/build/cape.js"></script>
+
+  <script type="text/javascript">
+    function load() {
+      // test events here
+    }
+  
+  </script>
+
+  <style type="text/css">
+    body {
+      display: flex;
+      flex-direction: column; 
+    }
+    body > * {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body onload="load()">
+  <cape-button button-style="default" button-color="#1453DC">Submit</cape-button>
+  <cape-button button-style="default--inverted" button-color="#d1042d">Login</cape-button>
+  <cape-button button-disabled=true button-color="rebeccapurple">Go</cape-button>
+  <cape-text-input placeholder="Username"></cape-text-input>
+  <cape-text-input placeholder="Password" type="password" input-color="#d1042d"></cape-text-input>
+</body>
+</html>

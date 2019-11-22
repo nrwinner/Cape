@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+:host {
+  --input-color: #1453DC;
+  --placeholder-color: #868686;
+
+  display: inline-block;
+}
+
+@mixin state--focused() {
+  @include state--filled();
+
+  .text-input__input {
+    border-color: var(--input-color);
+  }
+
+  .text-input__placeholder {
+    color: var(--input-color);
+  }
+}
+
+@mixin state--filled() {
+  .text-input__placeholder {
+    z-index: 1;
+    transform: scale(0.85) translateY(-17px);
+  }
+}
+
+// config
+$fontSize: 13px;
+$padding: 8px;
+
+input {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  outline: 0;
+  padding: $padding;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.text-input {
+  display: inline-block;
+  font-size: $fontSize;
+  position: relative;
+  background: transparent;
+
+  &.text-input--focused {
+    @include state--focused();
+  }
+
+  &.text-input--filled {
+    @include state--filled();
+  }
+}
+
+.text-input__placeholder {
+  position: absolute;
+  left: calc(#{$padding} - 1px);
+  top: $padding;
+  color: var(--placeholder-color);
+  padding: 0 2px;
+  background: transparent;
+  transform-origin: 0 0;
+  transition: transform 0.14s ease;
+  z-index: -1;
+  background: white;
+}
+
+.text-input__input {
+  border: 1px solid var(--placeholder-color);
+  border-radius: 4px;
+  font-family: 'Lato', sans-serif;
+  background: transparent;
+}
