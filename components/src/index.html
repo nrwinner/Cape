@@ -16,20 +16,57 @@
   </script>
 
   <style type="text/css">
+    [cape] {
+      --config-outline-color: transparent !important;
+    }
     body {
       display: flex;
       flex-direction: column; 
     }
-    body > * {
+    body > div > * {
       margin-bottom: 30px;
     }
   </style>
+
+  <link href="/build/cape.css" rel="stylesheet" type="text/css"></link>
 </head>
 <body onload="load()">
-  <cape-button button-style="default" button-color="#1453DC">Submit</cape-button>
-  <cape-button button-style="default--inverted" button-color="#d1042d">Login</cape-button>
-  <cape-button button-disabled=true button-color="rebeccapurple">Go</cape-button>
-  <cape-text-input placeholder="Username"></cape-text-input>
-  <cape-text-input placeholder="Password" type="password" input-color="#d1042d"></cape-text-input>
+  <div style="width: 250px">
+    <cape-button button-style="default">Submit</cape-button>
+    <cape-button button-style="default--inverted">Login</cape-button>
+    <cape-button button-disabled=true>Go</cape-button>
+    <cape-text-input placeholder="Full Name"></cape-text-input>
+    <cape-text-input placeholder="Age" type="number" readonly=true value="18"></cape-text-input>
+    <cape-switch label="Remember me?"></cape-switch>
+
+    <div style="display: flex; flex-direction: row; align-items: center;">
+      <cape-tool-tip trigger-event="hover">
+        <div slot="tooltip">
+          A little bit of extra info :)
+        </div>
+        <cape-button slot="target">Need more info?</cape-button>
+      </cape-tool-tip>
+      <cape-tool-tip trigger-event="click">>
+        <div slot="tooltip">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam molestie tristique bibendum. Donec porta tortor at mauris egestas semper. Maecenas ac tempus quam. Aliquam erat volutpat. Donec id eros orci. Vivamus bibendum quis libero id venenatis. Proin ac elit nec diam bibendum ornare. Vivamus nec enim dui.
+          <div>
+            <br />
+            <cape-button>Go</cape-button>
+          </div>
+        </div>
+        <img slot="target" src="assets/icons/exclamation-circle.svg" width="20" style="margin-left: 10px; cursor: pointer" />
+      </cape-tool-tip>
+    </div>
+
+    <cape-dropdown currently-selected="option1">
+      <ul>
+        <li key="option1">Option 1</li>
+        <li key="option2">Option 2</li>
+        <li key="option3">A slightly longer option that should have an ellipsis at the end</li>
+        <li key="option4">A slightly longer option that should have an ellipsis at the end</li>
+        <li key="option5">A slightly longer option that should have an ellipsis at the end</li>
+      </ul>
+    </cape-dropdown>
+  </div>
 </body>
 </html>

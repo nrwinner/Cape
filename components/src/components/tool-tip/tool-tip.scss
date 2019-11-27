@@ -1,0 +1,58 @@
+:host {
+  display: block;
+
+  --position-left: 0;
+  --position-top: 0;
+  --position-triangle-left: 10px;
+
+  --color-tooltip-background-h: 0;
+  --color-tooltip-background-s: 0%;
+  --color-tooltip-background-l: 0%;
+  --color-tooltip-background-a: 0.9;
+  --color--tooltip-text: white;
+
+  --transition-delay: 0s
+}
+
+@function getTooltipBackgroundColor() {
+  @return hsla(var(--color-tooltip-background-h), var(--color-tooltip-background-s), var(--color-tooltip-background-l), var(--color-tooltip-background-a));
+}
+
+.tooltip {
+
+  position: absolute;
+  background: getTooltipBackgroundColor();
+  padding: 8px;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  min-width: 150px;
+  max-width: 350px;
+  bottom: var(--position-top);
+  left: var(--position-left);
+  z-index: 9999999999;
+  transform: translateY(4px);
+  transition: all 0.15s var(--transition-delay) ease;
+  opacity: 0;
+  visibility: hidden;
+
+  &:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px;
+    border-color: getTooltipBackgroundColor() transparent transparent transparent;
+    position: absolute;
+    left: var(--position-triangle-left);
+    margin: auto;
+    bottom: -12px;
+    z-index: inherit;
+  }
+
+  &.tooltip--visible {
+    visibility: visible;
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}

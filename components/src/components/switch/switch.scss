@@ -1,0 +1,67 @@
+:host {
+  display: inline-block;
+}
+
+@mixin state--activated() {
+  .switch__button {
+    background: accentColor();
+  }
+  .switch__fob {
+    transform: translateX(calc(#{$width} - #{$height})) scale(0.8);
+  }
+}
+
+// config
+$scale: 48px;
+
+$width: calc(#{$scale} * 0.87);
+$height: calc(#{$scale} / 2);;
+
+.switch {
+  appearance: none;
+  border: 0;
+  background: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-size: var(--font-size-small);
+  color: var(--color-extra-dark-grey);
+  cursor: pointer;
+  outline: 0;
+  transition:
+    background 0.16s ease,
+    transform 0.16s ease;
+
+  &:focus {
+    @include focused();
+  }
+  
+  .switch__button {
+    width: $width;
+    height: $height;
+    border-radius: $scale;
+    background: var(--color-light-grey);
+    transition: inherit;
+    margin-right: 10px;
+    position: relative;
+  }
+
+  .switch__fob {
+    position: absolute;
+    width: $height;
+    height: $height;
+    background: white;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transform: scale(0.8);
+    transition: inherit;
+  }
+}
+
+.switch--activated {
+  @include state--activated();
+}

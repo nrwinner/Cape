@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+
+/**
+  Retrieve the accent color from the stored HSL values
+*/
+@function accentColor() {
+  @return hsl(var(--color-accent-h), var(--color-accent-s), var(--color-accent-l));
+}
+
+/**
+  Retrieve the accent tcolor from the stored HSL values and overwrite the L value
+*/
+@function accentColorWithLightness($lightness) {
+  @return hsl(var(--color-accent-h), var(--color-accent-s), $lightness);
+}
+
+/**
+  Retrieve the accent color from the stored HSL values and supply a value for alph
+*/
+@function accentColorWithAlpha($alpha) {
+  @return hsla(var(--color-accent-h), var(--color-accent-s), var(--color-accent-l), $alpha);
+}
+
+/**
+  Prevent the user from "selecting" the specified element
+*/
+@mixin disable-selection {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+@mixin focused {
+  outline: 2px solid var(--config-outline-color);
+}
+
+[cape] {
+  /******* GLOBAL STYLES *******/
+  font-family: 'Lato', sans-serif !important;
+
+  /******* CONFIG *******/
+  --config-outline-color: #{accentColor()};
+    
+  
+  /******* COLORS *******/
+  // `Normal Text` AA compliant on white, NOT `Normal Text` compliant on black
+  --color-accent-h: 221;
+  --color-accent-s: 83%;
+  --color-accent-l: 47%;
+
+  // Below are NOT `Normal Text` compliant on white
+  --color-extra-light-grey: #f0f0f0;
+  --color-light-grey: #d4d4d4;
+  --color-medium-grey: #9e9e9e;
+  // Below are `Normal Text` AA compliant on white
+  --color-darker-medium-grey: #6e6e6e;
+  // Below are `Normal Text` AAA compliant on white
+  --color-dark-grey: #4d4d4d;
+  --color-extra-dark-grey: #252525;
+
+  
+  /******* Font Sizes *******/
+  --font-size-extra-small: 12px;
+  --font-size-small: 14px;
+  --font-size-normal: 16px;
+  // WCAG 2.0 considers text this size or larger "large" iff bold
+  --font-size-large: 18px;
+  // WCAG 2.0 considers text this size or larger "large"
+  --font-size-extra-large: 24px;
+}

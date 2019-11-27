@@ -1,8 +1,7 @@
 import { Component, Host, Element, Event, Prop, h, State, EventEmitter } from '@stencil/core';
-import { getHSL } from '../../utils/color';
+import { setAccentColor } from '../../utils/color';
 
 export type ButtonStyle = 'default' | 'default--inverted';
-
 @Component({
   tag: 'cape-button',
   styleUrl: 'button.scss',
@@ -12,24 +11,22 @@ export class Button {
   @Element() element: HTMLElement;
 
   @Prop() buttonStyle: ButtonStyle = 'default';
-  @Prop() buttonColor: string;
+  @Prop() accentColor: string;
   @Prop() buttonDisabled: boolean;
 
   @State() classes: { [key: string]: boolean } = {};
 
   @Event() onclick: EventEmitter;
 
-  connectedCallback() {
-    if (this.buttonColor) {
-      const [hue, saturation, lightness] = getHSL(this.buttonColor).match(/[0-9.%]+/g);
-
-      this.element.style.setProperty('--button-color-h', hue);
-      this.element.style.setProperty('--button-color-s', saturation);
-      this.element.style.setProperty('--button-color-l', lightness);
+  componentWillLoad() {
+    if (this.accentColor) {
+      setAccentColor(this.element, this.accentColor);
     }
 
     this.classes[`button--style--${this.buttonStyle}`] = true;
     this.classes[`button--state--disabled`] = this.buttonDisabled;
+
+    this.element.setAttribute('cape', '');
   }
 
   triggerClick() {
@@ -41,7 +38,7 @@ export class Button {
   render() {
     return (
       <Host>
-        <button onClick={() => this.triggerClick()} class={this.classes}>
+        <button tabIndex={this.buttonDisabled ? -1 : 0} onClick={() => this.triggerClick()} class={this.classes}>
           <slot></slot>
         </button>
       </Host>

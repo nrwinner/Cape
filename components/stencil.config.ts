@@ -3,11 +3,11 @@ import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'cape',
-  srcDir: 'src',
+  globalStyle: 'src/globals.scss',
   outputTargets: [
     {
       type: 'dist',
-      esmLoaderPath: '../loader'
+      esmLoaderPath: '../loader',
     },
     {
       type: 'docs-readme'
@@ -18,6 +18,10 @@ export const config: Config = {
     }
   ],
   plugins: [
-    sass()
+    sass({
+      injectGlobalPaths: [
+        'src/globals.scss'
+      ]
+    })
   ]
 };

@@ -1,27 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-
 :host {
-  --button-color-h: 0;
-  --button-color-s: 83%;
-  --button-color-l: 47%;
-  --button-color-a: 1;
-}
-
-@function buttonColor($lightness: var(--button-color-l)) {
-  @return hsla(var(--button-color-h), var(--button-color-s), $lightness, var(--button-color-a));
-}
-
-@function buttonColorAlpha($alpha: var(--button-color-a)) {
-  @return hsla(var(--button-color-h), var(--button-color-s), var(--button-color-l), $alpha);
+  display: block;
 }
 
 @mixin state--hovered() {
   transform: scale(1.02);
-  box-shadow: 0 10px 16px -10px buttonColorAlpha(0.5);
+  box-shadow: 0 10px 16px -10px accentColorWithAlpha(0.5);
 }
 
 @mixin state--focused() {
-  box-shadow: 0 4px 8px -4px buttonColorAlpha(0.65);
+  box-shadow: 0 4px 8px -4px accentColorWithAlpha(0.65);
 }
 
 @mixin state--disabled() {
@@ -32,23 +19,23 @@
 }
 
 @mixin style--default() {
-  background: buttonColor();
+  background: accentColor();
   color: white;
 
   &:hover:not(:active) {
     @include state--hovered();
-    background: buttonColor(calc(var(--button-color-l) + 10%));
+    background: accentColorWithLightness(calc(var(--color-accent-l) + 10%));
   }
 
   &:active {
     @include state--focused();
-    background: buttonColor(calc(var(--button-color-l) - 10%));
+    background: accentColorWithLightness(calc(var(--color-accent-l) - 10%));
   }
 }
 
 @mixin style--default--inverted() {
+  color: accentColor();
   background: white;
-  color: buttonColor();
 
   &:hover:not(:active) {
     @include state--hovered();
@@ -61,31 +48,29 @@
   }
 }
 
-@mixin disable-selection {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
-}
+
 
 button {
-  outline: 0;
   margin: 0;
   appearance: none;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: var(--font-size-small);
   padding: 9px 15px;
   border-radius: 4px;
   border: 0;
-  font-weight: 500;
-  font-family: sans-serif;
+  color: var(--color-extra-dark-grey);
   cursor: pointer;
-  box-shadow: 0 8px 16px -8px buttonColorAlpha(0.6);
-  transition: all 0.03s ease, background 0.08s ease;
-  font-family: 'Lato', sans-serif;
+  box-shadow: 0 8px 16px -8px accentColorWithAlpha(0.6);
+  transition:
+    transform 0.05s ease,
+    box-shadow 0.05s ease,
+    background 0.08s ease;
+
   @include disable-selection();
+
+  &:focus {
+    @include focused();
+  }
 
   &.button--style--default {
     @include style--default();

@@ -10,18 +10,39 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   ButtonStyle,
 } from './components/button/button';
+import {
+  ToolTipPosition,
+  ToolTipTrigger,
+} from './components/tool-tip/tool-tip';
 
 export namespace Components {
   interface CapeButton {
-    'buttonColor': string;
+    'accentColor': string;
     'buttonDisabled': boolean;
     'buttonStyle': ButtonStyle;
+  }
+  interface CapeDropdown {
+    'currentlySelected': string;
+  }
+  interface CapeSwitch {
+    'accentColor': string;
+    'activated': boolean;
+    'disabled': boolean;
+    'label': string;
   }
   interface CapeTextInput {
     'inputColor': string;
     'placeholder': string;
+    'readonly': boolean;
     'type': string;
     'value': string;
+  }
+  interface CapeToolTip {
+    'delay': number;
+    'persist': number;
+    'position': ToolTipPosition;
+    'tip': string;
+    'triggerEvent': ToolTipTrigger;
   }
 }
 
@@ -34,23 +55,55 @@ declare global {
     new (): HTMLCapeButtonElement;
   };
 
+  interface HTMLCapeDropdownElement extends Components.CapeDropdown, HTMLStencilElement {}
+  var HTMLCapeDropdownElement: {
+    prototype: HTMLCapeDropdownElement;
+    new (): HTMLCapeDropdownElement;
+  };
+
+  interface HTMLCapeSwitchElement extends Components.CapeSwitch, HTMLStencilElement {}
+  var HTMLCapeSwitchElement: {
+    prototype: HTMLCapeSwitchElement;
+    new (): HTMLCapeSwitchElement;
+  };
+
   interface HTMLCapeTextInputElement extends Components.CapeTextInput, HTMLStencilElement {}
   var HTMLCapeTextInputElement: {
     prototype: HTMLCapeTextInputElement;
     new (): HTMLCapeTextInputElement;
   };
+
+  interface HTMLCapeToolTipElement extends Components.CapeToolTip, HTMLStencilElement {}
+  var HTMLCapeToolTipElement: {
+    prototype: HTMLCapeToolTipElement;
+    new (): HTMLCapeToolTipElement;
+  };
   interface HTMLElementTagNameMap {
     'cape-button': HTMLCapeButtonElement;
+    'cape-dropdown': HTMLCapeDropdownElement;
+    'cape-switch': HTMLCapeSwitchElement;
     'cape-text-input': HTMLCapeTextInputElement;
+    'cape-tool-tip': HTMLCapeToolTipElement;
   }
 }
 
 declare namespace LocalJSX {
   interface CapeButton {
-    'buttonColor'?: string;
+    'accentColor'?: string;
     'buttonDisabled'?: boolean;
     'buttonStyle'?: ButtonStyle;
     'onOnclick'?: (event: CustomEvent<any>) => void;
+  }
+  interface CapeDropdown {
+    'currentlySelected'?: string;
+    'onSelected'?: (event: CustomEvent<any>) => void;
+  }
+  interface CapeSwitch {
+    'accentColor'?: string;
+    'activated'?: boolean;
+    'disabled'?: boolean;
+    'label'?: string;
+    'onOntoggle'?: (event: CustomEvent<any>) => void;
   }
   interface CapeTextInput {
     'inputColor'?: string;
@@ -58,13 +111,24 @@ declare namespace LocalJSX {
     'onOnfocus'?: (event: CustomEvent<any>) => void;
     'onOninput'?: (event: CustomEvent<any>) => void;
     'placeholder'?: string;
+    'readonly'?: boolean;
     'type'?: string;
     'value'?: string;
+  }
+  interface CapeToolTip {
+    'delay'?: number;
+    'persist'?: number;
+    'position'?: ToolTipPosition;
+    'tip'?: string;
+    'triggerEvent'?: ToolTipTrigger;
   }
 
   interface IntrinsicElements {
     'cape-button': CapeButton;
+    'cape-dropdown': CapeDropdown;
+    'cape-switch': CapeSwitch;
     'cape-text-input': CapeTextInput;
+    'cape-tool-tip': CapeToolTip;
   }
 }
 
@@ -75,7 +139,10 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'cape-button': LocalJSX.CapeButton & JSXBase.HTMLAttributes<HTMLCapeButtonElement>;
+      'cape-dropdown': LocalJSX.CapeDropdown & JSXBase.HTMLAttributes<HTMLCapeDropdownElement>;
+      'cape-switch': LocalJSX.CapeSwitch & JSXBase.HTMLAttributes<HTMLCapeSwitchElement>;
       'cape-text-input': LocalJSX.CapeTextInput & JSXBase.HTMLAttributes<HTMLCapeTextInputElement>;
+      'cape-tool-tip': LocalJSX.CapeToolTip & JSXBase.HTMLAttributes<HTMLCapeToolTipElement>;
     }
   }
 }

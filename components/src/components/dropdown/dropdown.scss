@@ -1,0 +1,128 @@
+:host {
+  display: block;
+}
+
+.dropdown  {
+  margin: 0;
+  padding: 0;
+  display: block;
+  font-size: var(--font-size-small);
+  position: relative;
+
+  &.dropdown--active {
+
+    ul {
+      transform: scale(1, 1);
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .dropdown__handle {
+      border-radius: 4px 4px 0 0;
+
+      .handle__icon {
+        transform: rotateZ(180deg);
+      }
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    transform-origin: center top;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.16s ease;
+    transform: scale(1, 0);
+    position: absolute;
+    z-index: 99999999;
+    background: var(--color-extra-light-grey);
+    max-width: 100%;
+    max-height: 175px;
+    overflow: auto;
+    box-shadow: 0 8px 16px -8px accentColorWithAlpha(0.6);
+
+    button {
+      appearance: none;
+      outline: 0;   
+  
+      display: block;
+      padding-left: 20px;
+  
+      // offset the element by 1px for the borders
+      padding-right: 0;
+  
+      text-align: left;
+      font-size: var(--font-size-small);
+      background: transparent;
+      border: 0;
+      width: 100%;
+      color: var(--color-extra-dark-grey);
+  
+      &:hover,
+      &:focus,
+      &.dropdown-list__item--selected {
+        background: var(--color-light-grey);
+      }
+
+      &:focus {
+        @include focused();
+        outline-offset: -2px;
+      }
+  
+      li {
+        margin: 0;
+        list-style-type: none;
+        padding: 10px 10px 10px 0;
+        max-width: 100%;
+        cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+  
+      &:not(:last-child) {
+        
+        li {
+          border-bottom: 1px solid var(--color-light-grey);
+        }
+      }
+    }
+  }
+}
+
+.dropdown__handle {
+  appearance: none;
+  outline: 0;
+  background: transparent;
+  text-align: left;
+  font-size: var(--font-size-small);;
+  padding: 8px;
+  position: relative;
+  border: 1px solid var(--color-medium-grey);
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    border-radius 0.15s ease,
+    border-bottom-color 0.15s ease;
+  color: var(--color-extra-dark-grey);
+  padding-right: 30px;
+  min-width: 100%;
+
+  &:focus {
+    @include focused();
+  }
+  
+  .handle__icon {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 10px;
+    top:  0;
+    bottom: 0;
+    margin: auto;
+    background: var(--color-medium-grey);
+    mask: url('assets/icons/chevron-down.svg') center no-repeat;
+    transition: transform 0.15s ease;
+  }
+}

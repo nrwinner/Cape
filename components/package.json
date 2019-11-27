@@ -26,6 +26,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@stencil/sass": "^1.1.1"
+    "@stencil/sass": "^1.1.1",
+    "@types/node": "^12.12.12",
+    "css-vars-ponyfill": "^2.1.2"
   }
 }
