@@ -17,6 +17,7 @@ export class ToolTip {
   @Prop() triggerEvent: ToolTipTrigger = 'hover';
   @Prop() delay: number = 0;
   @Prop() persist: number = 0;
+  @Prop() tip: string;
 
   @State() visible: boolean;
 
@@ -59,19 +60,17 @@ export class ToolTip {
   handleClickOutside(event: MouseEvent | KeyboardEvent) {
     if (event instanceof MouseEvent && this.visible) {
       this.toggle();
-    } else if (event instanceof KeyboardEvent && this.visible && event.key === 'Escape') {
+    } else if (event instanceof KeyboardEvent && this.visible && event.key === 'Escape' && this.triggerEvent === 'click') {
       this.toggle();
     }
   }
-
-  @Prop() tip: string;
 
   render() {
     return (
       <Host>
         <span onClick={(event) => event.stopPropagation()} class="tooltip-wrapper">
           <div class={{tooltip: true, 'tooltip--visible': this.visible}}>
-            <slot name="tooltip"></slot>
+            { !this.tip && <slot name="tooltip"></slot> || this.tip }
           </div>
           <span
             onMouseEnter={this.triggerEvent === 'hover' && (() => this.toggle())}
