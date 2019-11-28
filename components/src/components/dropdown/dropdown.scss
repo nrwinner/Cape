@@ -107,7 +107,10 @@
     border-bottom-color 0.15s ease;
   color: var(--color-extra-dark-grey);
   padding-right: 30px;
-  min-width: 100%;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   &:focus {
     @include focused();
